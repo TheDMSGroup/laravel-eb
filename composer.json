@@ -1,0 +1,46 @@
+{
+    "name": "thedmsgrp/laravel-eb",
+    "description": "An example of a minimal Laravel application for automatic scaling in Elastic Beanstalk. Supports automated deployments via BitBucket Pipelines. Uses OctoberCMS as a base.",
+    "homepage": "http://thedmsgrp.com",
+    "keywords": ["october", "cms", "octobercms", "laravel", "elastic beanstalk"],
+    "license": "MIT",
+    "authors": [],
+    "require": {
+        "php": ">=5.5.9",
+        "october/rain": "~1.0",
+        "october/system": "~1.0",
+        "october/backend": "~1.0",
+        "october/cms": "~1.0",
+        "laravel/framework": "5.1.*",
+        "wikimedia/composer-merge-plugin": "dev-master",
+        "doctrine/annotations": "v1.2.6",
+        "FoxxMD/laravel-elasticbeanstalk-cron": "dev-master"
+    },
+    "require-dev": {
+        "fzaninotto/faker": "~1.4",
+        "phpunit/phpunit": "~4.0",
+        "phpunit/phpunit-selenium": "~1.2"
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "FoxxMD/laravel-elasticbeanstalk-cron",
+                "type": "october-plugin",
+                "description": "Ensure only one Laravel instance is running CRON jobs in an EB environment",
+                "version": "dev-master",
+                "source": {
+                    "url": "https://github.com/FoxxMD/laravel-elasticbeanstalk-cron.git",
+                    "type": "git",
+                    "reference": "133314fcc933f2acce15d694feec85334028194a"
+                }
+            }
+        }
+    ]
+}
+
+
+

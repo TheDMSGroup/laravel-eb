@@ -1,0 +1,5 @@
+# For this Elastic Beanstalk folder, only keep the configuration so that we do not need to eb init.
+# This will ensure your config.yml file is comitted to code to assist in automated deployments.
+*
+!.gitignore
+!config.yml

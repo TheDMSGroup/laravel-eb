@@ -1,0 +1,20 @@
+# Standard Laravel ignores
+/node_modules
+/public/storage
+/storage/*.key
+/vendor
+/.idea
+Homestead.json
+Homestead.yaml
+.env
+
+# Some additional things we'll typically ignore
+/bootstrap/compiled.php
+composer.phar
+.DS_Store
+/plugins
+/themes
+/modules
+
+# Note, we preffer to commit the composer.lock file so that we
+# can always faithfully reproduce the build by the root-level commit sha/describe/tag.

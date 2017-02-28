@@ -1,0 +1,16 @@
+# This is an example of the config file the "eb init" command will generate for you.
+# Usually this is automatically ignored, we like to keep these committed instead for automation.
+branch-defaults:
+  master:
+    environment: example-app-prod
+  stage:
+    environment: example-app-stage
+  dev:
+    environment: example-app-dev
+global:
+  application_name: Example Application
+  default_ec2_keyname: aws-eb
+  default_platform: 64bit Amazon Linux 2016.09 v2.3.0 running PHP 7.0
+  default_region: us-east-1
+  profile: eb-cli
+  sc: git

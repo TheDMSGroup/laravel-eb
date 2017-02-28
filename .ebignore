@@ -1,0 +1,11 @@
+# This determines what is ignored when packaging a deployment for Elastic Beanstalk.
+# Same as the gitignore file, except we WANT the vendor and .elasticbeanstalk folders and compiled assets.
+/build
+logs/*
+!logs/.gitkeep
+public/logs
+config.php
+.idea/
+.DS_Store
+.htaccess
+nohup.out

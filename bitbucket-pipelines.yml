@@ -1,0 +1,47 @@
+# You can use a Docker image from Docker Hub or your own container registry
+# image: phpunit/phpunit:5.0.3
+# This docker container includes phpunit:6.0.6, python-pip and the eb command line deployment tool from Amazon.
+image: heathdutton/phpunit-docker
+
+# So long as we have a tag once every 100 commits, this will suffice.
+clone:
+  depth: 100
+
+pipelines:
+  # Automated deployment from the "stage" branch for staging
+  branches:
+    dev:
+      - step:
+          script:
+            - git describe --long
+            - bash scripts/save-key.sh id_rsa "$DMS_BB"
+            - bash scripts/save-key.sh aws-eb.pem "$AWS_EB"
+            - bash scripts/aws-credentials.sh "$AWS_ACCESS_KEY_ID" "$AWS_SECRET_ACCESS_KEY"
+            - bash scripts/known-hosts.sh
+            - composer install --ansi --no-interaction --no-progress --optimize-autoloader --prefer-dist --no-dev
+            # The deployment script: <eb-environment> <app-url> <newrelic-app-id> <issues-url> <app-thumbnail-url> <optional-dashboard-url>
+            - bash scripts/deploy.sh example-app-dev dev.example.com 36526391 "https://thedmsgrp.atlassian.net/issues/?filter=10600" "http://i.imgur.com/NuUKabF.png"
+    stage:
+      - step:
+          script:
+            - git describe --long
+            - bash scripts/save-key.sh id_rsa "$DMS_BB"
+            - bash scripts/save-key.sh aws-eb.pem "$AWS_EB"
+            - bash scripts/aws-credentials.sh "$AWS_ACCESS_KEY_ID" "$AWS_SECRET_ACCESS_KEY"
+            - bash scripts/known-hosts.sh
+            - composer install --ansi --no-interaction --no-progress --optimize-autoloader --prefer-dist --no-dev
+            # The deployment script: <eb-environment> <app-url> <newrelic-app-id> <issues-url> <app-thumbnail-url> <optional-dashboard-url>
+            - bash scripts/deploy.sh example-app-stage stage.example.com 36526391 "https://thedmsgrp.atlassian.net/issues/?filter=10601" "http://i.imgur.com/NuUKabF.png"
+  # Manual deployments.
+  custom:
+    deploy-to-production:
+      - step:
+          script:
+            - git describe --long
+            - bash scripts/save-key.sh id_rsa "$DMS_BB"
+            - bash scripts/save-key.sh aws-eb.pem "$AWS_EB"
+            - bash scripts/aws-credentials.sh "$AWS_ACCESS_KEY_ID" "$AWS_SECRET_ACCESS_KEY"
+            - bash scripts/known-hosts.sh
+            - composer install --ansi --no-interaction --no-progress --optimize-autoloader --prefer-dist --no-dev
+            # The deployment script: <eb-environment> <app-url> <newrelic-app-id> <issues-url> <app-thumbnail-url> <optional-dashboard-url>
+            - bash scripts/deploy.sh example-app-prod example.com 36527000 "https://thedmsgrp.atlassian.net/issues/?filter=10602" "http://i.imgur.com/NuUKabF.png"
